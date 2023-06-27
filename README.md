@@ -3,16 +3,35 @@ Setting up and securing virtual mail on Linux
 
 VIRTUAL MAIL SYSTEM
 
-Virtual Mail System Components 
-Postfix (Mail/SMTP Server, MTA) 
-STARTTLS used for encryption 
-SMTP AUTH (SASL) used for authentication 
+**Virtual Mail System Components **
 
-Dovecot (IMAP/POP3 Server, MDA) 
+Postfix (Mail/SMTP Server, MTA) 
+
+Postfix is a hugely-popular Mail Transfer Agent (MTA) designed to determine routes and send emails. This cross-platform server is open-source, free, and suitable for installation on the majority of UNIX-like operating systems.
+
+Numerous client and server programs make up Postfix: the latter tend to run in the backend, while user or administrator programs utilize the former. Postfix’s structure is modular: it comprises various small, independent executables. Different parameters, features, and options are available, too.
+
+Another key aspect of Postfix is that it was created to overcome those drawbacks seen in Sendmail. A solid configuration keeps Postfix user data secure from leakage, abuse, and spam.
+
+STARTTLS used for encryption
+
+StartTLS is a protocol command used to inform the email server that the email client wants to upgrade from an insecure connection to a secure one using TLS or SSL. StartTLS is used with SMTP and IMAP, while POP3 uses the slightly different command for encryption, STLS. 
+
+SMTP AUTH (SASL) used for authentication
+
+Simple Authentication and Security Layer (SASL) is a framework for authentication and data security in Internet protocols. It decouples authentication mechanisms from application protocols, in theory allowing any authentication mechanism supported by SASL to be used in any application protocol that uses SASL. 
+
+Authentication mechanisms can also support proxy authorization, a facility allowing one user to assume the identity of another. They can also provide a data security layer offering data integrity and data confidentiality services. DIGEST-MD5 provides an example of mechanisms which can provide a data-security layer. Application protocols that support SASL typically also support Transport Layer Security (TLS) to complement the services offered by SASL.
+
+Dovecot (IMAP/POP3 Server, MDA)
+
+Dovecot is an open-source IMAP and POP3 server for Unix-like operating systems, written primarily with security in mind.[3] Timo Sirainen originated Dovecot and first released it in July 2002. Dovecot developers primarily aim to produce a lightweight, fast and easy-to-set-up open-source email server.
+
+The primary purpose of Dovecot is to act as a mail storage server. The mail is delivered to the server using some mail delivery agent (MDA) and is stored for later access with an email client (mail user agent, or MUA). Dovecot can also act as mail proxy server, forwarding connection to another mail server, or act as a lightweight MUA in order to retrieve and manipulate mail on remote server for e.g. mail migration.
+
 (SSL/TLS) used for encryption 
 
-MySql 
-stores the domains and the virtual users 
+MySql: stores the domains and the virtual users 
 
 Spam Filter (Rspamd/SpamAssassin)
 
@@ -20,19 +39,19 @@ Mail and DNS Requirements:
 
 1. An A record, to point the system’s FQDN to the mail server IPv4 address. mail.crystalmind.academy. IN A 206.81.X.X 
 
-Command dig -t a mail.x.x
+Command dig -t a {mail.x.x}
 
 2. An MX record for the domain. 
 
 @ IN MX 10 mail.crystalmind.academy. mail IN A 206.81.X.X 
 
-Command dig -t mx mail.x.x
+Command dig -t mx {mail.x.x}
 
 3. An SPF record for the domain 
 
 crystalmind.academy. IN TXT "v=spf1 mx ~all" 
 
-Command dig -t txt mail.x.x
+Command dig -t txt {mail.x.x}
 
 4. A PTR Record (Reverse DNS)
 
@@ -48,13 +67,13 @@ Checking pre-requisite
 
 Systemctl status bind9
 
-Dig -t mx [mail address}
+dig -t mx [mail address}
 
-Dig -x ipaddress of server
+dig -x ipaddress of server
 
-Systemctl status mysql
+systemctl status mysql
 
-Ls -l /etc/letsencrypt/live/webaddress
+ls -l /etc/letsencrypt/live/webaddress
 
 1. Installing Software Packages
 
