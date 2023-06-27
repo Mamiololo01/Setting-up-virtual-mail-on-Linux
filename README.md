@@ -1,4 +1,5 @@
-# Virtual-mail-on-Linux
+# SETTING UP VIRTUAL MAIL ON LINUX.
+
 Setting up and securing virtual mail on Linux
 
 VIRTUAL MAIL SYSTEM
